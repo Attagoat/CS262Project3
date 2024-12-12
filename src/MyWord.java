@@ -17,6 +17,11 @@ public class MyWord implements Comparable<MyWord>{
     public char[] getMyWord() {
         return myWord;
     }
+    public void setMyWord(char c, int i){
+        this.myWord[i] = c;
+    }
+
+
 
     @Override
     public int compareTo(MyWord o) {
@@ -35,6 +40,33 @@ public class MyWord implements Comparable<MyWord>{
             myWordSorter = c2-c1;
         }
         return myWordSorter;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        MyWord o = (MyWord) obj;
+        for (int i = 0; i < o.getMyWord().length; i++) {
+            if(o.getMyWord()[i] > 64 && o.getMyWord()[i] < 91){
+                char lowercase = (char) (o.getMyWord()[i] + 32);
+                o.setMyWord(lowercase, i);
+            }
+        }
+        for (int i = 0; i < this.myWord.length; i++) {
+            if(this.myWord[i] > 64 && this.myWord[i] < 91){
+                this.myWord[i] += 32;
+            }
+        }
+        boolean equal = true;
+        if(this.getMyWord().length != o.getMyWord().length){
+            equal = false;
+        } else {
+            for (int i = 0; i < o.getMyWord().length; i++) {
+                if (this.getMyWord()[i] != o.getMyWord()[i]) {
+                    equal = false;
+                }
+            }
+        }
+        return equal;
     }
 
     @Override
